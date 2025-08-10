@@ -3,10 +3,14 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<titel> <b>|| जय माता दी || </b></titel>
-  <title1>Beeru Bike Point - Bill</title1>
+<title>Beeru Bike Point - Bill</title>
+
+<!-- jsPDF library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 <style>
   body{font-family:Arial, sans-serif;margin:20px}
+  h1,h2,p,div{text-align: center;}
   h1{font-size:20px}
   .row{display:flex;gap:10px;align-items:center;margin-bottom:8px}
   input{padding:6px;font-size:14px}
@@ -14,7 +18,6 @@
   table th, table td{border:1px solid #bbb;padding:6px;text-align:left}
   .actions{margin-top:12px}
   button{padding:8px 12px}
-  /* Preview section styling */
   #previewSection{border-top:2px solid #000;margin-top:30px;padding-top:20px}
   .header{display:flex;justify-content:space-between;align-items:center}
   .title{font-size:22px;font-weight:700}
@@ -25,15 +28,10 @@
   .totals{margin-top:10px;display:flex;justify-content:space-between}
   .right{min-width:260px;text-align:right}
   .footer{margin-top:20px;font-size:12px}
- h {text-align: center;}  
-  h1 {text-align: center;}
-p {text-align: center;}
-div {text-align: center;}
-  
 </style>
 </head>
 <body>
-<h> || जय माता दी || </h>
+<h2> || जय माता दी || </h2>
 <h1>Beeru Bike Point — Create Bill</h1>
 
 <!-- FORM -->
@@ -81,15 +79,14 @@ div {text-align: center;}
 <div id="previewSection" style="display:none">
   <div class="header">
     <div>
-      <div class="title"><b> || जय माता दी || </b></div
-      <div class="title">Beeru Bike Point</div>
+      <div class="title1">Beeru Bike Point</div>
       <div class="sub">Two Wheeler Bike New & Old Spare Part Available</div>
       <div class="sub">Gautewadi, Digha Naka, Nr. Empire Tower, Thane Belapur Road, Navi Mumbai 08.</div>
       <div class="sub">Chaudhari Est., Millat Nagar, Shop No. 8, Goregaon Link Road, Bhandup (W), Mumbai 78.</div>
     </div>
     <div class="contact">
       <div>Mob.: 9867133048 / 9004191922</div>
-      <div style="margin-top:12px"> CASH </div>
+      <div style="margin-top:12px">  || जय माता दी ||  </div>
     </div>
   </div>
   <div class="info">
@@ -126,6 +123,11 @@ div {text-align: center;}
       <div style="margin-top:40px">Proprietor</div>
     </div>
   </div>
+</div>
+
+<!-- PDF Download Button -->
+<div style="margin-top:15px; text-align:center;">
+  <button id="downloadPdfBtn" style="display:none;">Download as PDF</button>
 </div>
 
 <script>
@@ -199,8 +201,21 @@ document.getElementById('previewBtn').addEventListener('click', () => {
   });
 
   document.getElementById('previewSection').style.display = 'block';
+  document.getElementById('downloadPdfBtn').style.display = 'inline-block';
+});
+
+document.getElementById('downloadPdfBtn').addEventListener('click', () => {
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF('p', 'pt', 'a4');
+  pdf.html(document.getElementById('previewSection'), {
+    callback: function (doc) {
+      doc.save('Beeru_Bike_Bill.pdf');
+    },
+    x: 10,
+    y: 10,
+    html2canvas: { scale: 0.6 }
+  });
 });
 </script>
-
 </body>
 </html>
